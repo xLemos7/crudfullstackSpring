@@ -1,36 +1,36 @@
 package com.exemplo.crudmongo.controller;
 
-import com.exemplo.crudmongo.Model.Avaliacao;
-import com.exemplo.crudmongo.service.AvaliacaoService;
+import com.exemplo.crudmongo.Model.Disciplina;
+import com.exemplo.crudmongo.service.DisciplinaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController 
-@RequestMapping("/api/avaliacao") 
+@RequestMapping("/api/Disciplinas") 
 @CrossOrigin(origins = "*") 
 
-public class AvaliacaoController {
-     private final AvaliacaoService service; 
+public class DisciplinaController {
+     private final DisciplinaService service; 
 
-    public AvaliacaoController(AvaliacaoService service) {
+    public DisciplinaController(DisciplinaService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<Avaliacao> listar() {
+    public List<Disciplina> listar() {
         return service.listarTodas();
     }
 
     @PostMapping
-    public Avaliacao criar(@RequestBody Avaliacao avaliacao) {
-        return service.salvar(avaliacao);
+    public Disciplina criar(@RequestBody Disciplina disciplina) {
+        return service.salvar(disciplina);
     }
  
     @PutMapping("/{id}")
-    public Avaliacao atualizar(@PathVariable Long id, 
-    @RequestBody Avaliacao avaliacao) {
-        return service.atualizar(id, avaliacao);
+    public Disciplina atualizar(@PathVariable Long id, 
+    @RequestBody Disciplina disciplina) {
+        return service.atualizar(id, disciplina);
     }
 
     @DeleteMapping("/{id}")

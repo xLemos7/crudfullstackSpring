@@ -21,6 +21,21 @@ public class PessoaController {
         return service.listarTodas();
     }
 
+    @GetMapping("/nome")
+    public List<Pessoa> buscarPorNome(@RequestParam("valor") String nome) {
+        return service.buscarPorNome(nome);
+    }
+
+    @GetMapping("/idade")
+    public List<Pessoa> buscarPorIdade(@RequestParam("valor") Integer idade) {
+        return service.buscarPorIdade(idade);
+    }
+
+    @GetMapping("/pagina")
+    public Page<Pessoa> listarPaginado(@RequestParam(defaultValue = "0") int numero, @RequestParam(defaultValue = "10") int tamanho) {
+        return service.listarPaginado(numero, tamanho);
+    }
+
     @PostMapping
     public Pessoa criar(@RequestBody Pessoa pessoa) {
         return service.salvar(pessoa);
