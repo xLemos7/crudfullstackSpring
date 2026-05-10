@@ -16,7 +16,7 @@ public class DataLoader {
     CommandLineRunner loadDatabase(CursoRepository repository) {
         return args -> {
             if (repository.count() == 0) {
-                Faker faker = new Faker(new Locale("pt-BR"));
+                Faker faker = new Faker(Locale.forLanguageTag("pt-BR"));
 
                 for (int i = 0; i < 200; i++) {
                     Curso curso = new Curso();
@@ -31,8 +31,4 @@ public class DataLoader {
             }
         };
     }
-
-
-
-    
 }
