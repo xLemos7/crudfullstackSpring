@@ -1,5 +1,6 @@
 package com.exemplo.matriculaservice.controller;
 
+import com.exemplo.matriculaservice.dto.MatriculaDetalhadaDTO;
 import com.exemplo.matriculaservice.model.Matricula;
 import com.exemplo.matriculaservice.service.MatriculaService;
 import org.springframework.http.HttpStatus;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Controller REST do microserviço de Matrículas.
+ * Controller REST do microserviÃ§o de MatrÃ­culas.
  *
  * Base URL: http://localhost:8081/api/matriculas
  *
- * Endpoints disponíveis:
+ * Endpoints disponÃ­veis:
  *   GET    /api/matriculas              ? lista todas
  *   GET    /api/matriculas/{id}         ? busca por ID
  *   GET    /api/matriculas/pessoa/{id}  ? lista por pessoa
@@ -40,8 +41,8 @@ public class MatriculaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Matricula> buscarPorId(@PathVariable Long id) {
-        return service.buscarPorId(id)
+    public ResponseEntity<MatriculaDetalhadaDTO> buscarPorId(@PathVariable Long id) {
+        return service.buscarDetalhadaPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
