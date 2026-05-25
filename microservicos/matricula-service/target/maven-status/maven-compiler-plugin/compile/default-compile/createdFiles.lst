@@ -1,0 +1,2 @@
+com\exemplo\matriculaservice\exception\ApiError.class
+com\exemplo\matriculaservice\exception\GlobalExceptionHandler.class

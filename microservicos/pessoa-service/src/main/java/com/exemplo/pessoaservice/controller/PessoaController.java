@@ -55,21 +55,13 @@ public class PessoaController {
     @PutMapping("/{id}")
     public ResponseEntity<Pessoa> atualizar(@PathVariable Long id,
                                                    @RequestBody Pessoa pessoa) {
-        try {
-            return ResponseEntity.ok(service.atualizar(id, pessoa));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.atualizar(id, pessoa));
     }
 
     @PatchMapping("/{id}/desativar")
     public ResponseEntity<Void> desativar(@PathVariable Long id) {
-        try {
-            service.desativar(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        service.desativar(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

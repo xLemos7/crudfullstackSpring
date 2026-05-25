@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +33,10 @@ public class MatriculaService {
 
     public MatriculaService(MatriculaRepository repository, RestTemplateBuilder restTemplateBuilder) {
         this.repository = repository;
-        this.restTemplate = restTemplateBuilder.build();
+        this.restTemplate = restTemplateBuilder
+                .setConnectTimeout(Duration.ofSeconds(2))
+                .setReadTimeout(Duration.ofSeconds(2))
+                .build();
     }
 
     /** Lista todas as matrículas */
@@ -90,7 +95,7 @@ public class MatriculaService {
     }
 
     private MatriculaDetalhadaDTO montarDetalhada(Matricula matricula) {
-        String nomePessoa = buscarNome(pessoaServiceUrl, matricula.getPessoaId());
+        String nomePessoa = buscarNomePessoa(matricula.getPessoaId());
         String nomeCurso = buscarNome(cursoServiceUrl, matricula.getCursoId());
 
         return new MatriculaDetalhadaDTO(
@@ -104,17 +109,35 @@ public class MatriculaService {
         );
     }
 
+    private String buscarNomePessoa(Long pessoaId) {
+        if (pessoaId == null) {
+            return null;
+        }
+
+        try {
+            return buscarNomeSemFallback(pessoaServiceUrl, pessoaId);
+        } catch (ResourceAccessException e) {
+            return "indisponível";
+        } catch (RestClientException e) {
+            return null;
+        }
+    }
+
     private String buscarNome(String serviceUrl, Long id) {
         if (id == null) {
             return null;
         }
 
         try {
-            Map<?, ?> resposta = restTemplate.getForObject(serviceUrl + "/" + id, Map.class);
-            Object nome = resposta != null ? resposta.get("nome") : null;
-            return nome != null ? nome.toString() : null;
+            return buscarNomeSemFallback(serviceUrl, id);
         } catch (RestClientException e) {
             return null;
         }
+    }
+
+    private String buscarNomeSemFallback(String serviceUrl, Long id) {
+        Map<?, ?> resposta = restTemplate.getForObject(serviceUrl + "/" + id, Map.class);
+        Object nome = resposta != null ? resposta.get("nome") : null;
+        return nome != null ? nome.toString() : null;
     }
 }

@@ -1,0 +1,9 @@
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\MatriculaServiceApplication.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\config\MatriculaDataLoader.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\repository\MatriculaRepository.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\exception\GlobalExceptionHandler.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\service\MatriculaService.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\model\Matricula.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\controller\MatriculaController.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\dto\MatriculaDetalhadaDTO.java
+C:\Users\aclem\Downloads\crudfullstackSpring - Copia\microservicos\matricula-service\src\main\java\com\exemplo\matriculaservice\exception\ApiError.java

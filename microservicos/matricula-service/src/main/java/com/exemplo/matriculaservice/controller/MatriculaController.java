@@ -66,21 +66,13 @@ public class MatriculaController {
     @PutMapping("/{id}")
     public ResponseEntity<Matricula> atualizar(@PathVariable Long id,
                                                @RequestBody Matricula matricula) {
-        try {
-            return ResponseEntity.ok(service.atualizar(id, matricula));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(service.atualizar(id, matricula));
     }
 
     @PatchMapping("/{id}/desativar")
     public ResponseEntity<Void> desativar(@PathVariable Long id) {
-        try {
-            service.desativar(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        service.desativar(id);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

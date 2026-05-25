@@ -1,0 +1,2 @@
+com\exemplo\pessoaservice\exception\GlobalExceptionHandler.class
+com\exemplo\pessoaservice\exception\ApiError.class
