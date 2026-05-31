@@ -24,6 +24,19 @@ services:
     networks:
       - app-network
 
+  # Microserviço - Matriculas
+  matricula-service:
+    build:
+      context: ./microservicos/matricula-service
+    container_name: matricula-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SERVICES_PESSOA_URL=http://pessoa-service:8082/api/pessoas
+      - SERVICES_CURSO_URL=http://curso-service:8083/api/cursos
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

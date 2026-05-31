@@ -1,2 +1,9 @@
+com\exemplo\matriculaservice\dto\MatriculaDetalhadaDTO.class
+com\exemplo\matriculaservice\service\MatriculaService.class
+com\exemplo\matriculaservice\config\MatriculaDataLoader.class
 com\exemplo\matriculaservice\exception\ApiError.class
+com\exemplo\matriculaservice\repository\MatriculaRepository.class
+com\exemplo\matriculaservice\controller\MatriculaController.class
 com\exemplo\matriculaservice\exception\GlobalExceptionHandler.class
+com\exemplo\matriculaservice\model\Matricula.class
+com\exemplo\matriculaservice\MatriculaServiceApplication.class
