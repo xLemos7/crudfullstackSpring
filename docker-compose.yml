@@ -1,18 +1,19 @@
 services:
-  # Backend - Spring Boot
+  # Backend monolitico mantido para uso direto, sem ocupar a porta 8080 do host.
   app:
+    profiles:
+      - monolito
     build:
       context: ./backend
     container_name: crud-springboot
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb+srv://usuariodobanco:senha@cluster0.datgvgs.mongodb.net/nomedobanco?retryWrites=true&w=majority
-
     networks:
       - app-network
 
-  # Frontend - Angular com Nginx configurado para redirecionar /api para o backend
+  # Frontend - Angular com Nginx redirecionando /api para o gateway.
   frontend:
     build:
       context: ./frontend
@@ -20,20 +21,94 @@ services:
     ports:
       - "4200:80"
     depends_on:
-      - app
+      - gateway-service
     networks:
       - app-network
 
-  # Microserviço - Matriculas
+  # API Gateway - entrada principal na porta 8080.
+  gateway-service:
+    build:
+      context: ./microservicos/gateway-service
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      - MATRICULA_SERVICE_URL=http://matricula-service:8081
+      - PESSOA_SERVICE_URL=http://pessoa-service:8082
+      - CURSO_SERVICE_URL=http://curso-service:8083
+      - DISCIPLINA_SERVICE_URL=http://disciplina-service:8084
+      - PROFESSOR_SERVICE_URL=http://professor-service:8085
+      - TURMA_SERVICE_URL=http://turma-service:8086
+    depends_on:
+      - matricula-service
+      - pessoa-service
+      - curso-service
+      - disciplina-service
+      - professor-service
+      - turma-service
+    networks:
+      - app-network
+
+  # Microservico - Matriculas.
   matricula-service:
     build:
       context: ./microservicos/matricula-service
     container_name: matricula-service
-    ports:
-      - "8081:8081"
+    expose:
+      - "8081"
     environment:
       - SERVICES_PESSOA_URL=http://pessoa-service:8082/api/pessoas
       - SERVICES_CURSO_URL=http://curso-service:8083/api/cursos
+    networks:
+      - app-network
+
+  # Microservico - Pessoas.
+  pessoa-service:
+    build:
+      context: ./microservicos/pessoa-service
+    container_name: pessoa-service
+    expose:
+      - "8082"
+    networks:
+      - app-network
+
+  # Microservico - Cursos.
+  curso-service:
+    build:
+      context: ./microservicos/curso-service
+    container_name: curso-service
+    expose:
+      - "8083"
+    networks:
+      - app-network
+
+  # Microservico - Disciplinas.
+  disciplina-service:
+    build:
+      context: ./microservicos/disciplina-service
+    container_name: disciplina-service
+    expose:
+      - "8084"
+    networks:
+      - app-network
+
+  # Microservico - Professores.
+  professor-service:
+    build:
+      context: ./microservicos/professor-service
+    container_name: professor-service
+    expose:
+      - "8085"
+    networks:
+      - app-network
+
+  # Microservico - Turmas.
+  turma-service:
+    build:
+      context: ./microservicos/turma-service
+    container_name: turma-service
+    expose:
+      - "8086"
     networks:
       - app-network
 
